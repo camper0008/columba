@@ -1,0 +1,10 @@
+[package]
+name = "mail-project-cli"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+
+[[bin]]
+name = "mail-cli"
+path = "src/main.rs"

@@ -1,0 +1,11 @@
+[package]
+name = "mail-project-server"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+openssl = { version = "0.10", features = ["vendored"] }
+
+[[bin]]
+name = "mail-server"
+path = "src/main.rs"
