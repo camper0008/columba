@@ -1,5 +1,18 @@
 # todo
 
-* openssl EdDSA
-
-https://docs.rs/openssl/0.10.38/openssl/dsa/struct.Dsa.html
+- [ ] client
+    - [ ] ability to send requests as specified by `SPECS.md`
+    - [ ] message encryption
+- [ ] cli
+    - [ ] implement help
+    - [ ] implement create
+    - [ ] implement inbox
+    - [ ] implement read
+    - [ ] implement send
+- [ ] server
+    - [ ] implement create
+    - [ ] implement inbox
+    - [ ] implement read
+    - [ ] implement send
+- [ ] config
+    - [ ] mailprojectrc

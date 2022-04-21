@@ -2,7 +2,7 @@ create:
 
 create an alias/username for a public key
 
-username should be max 128 bytes
+username should be max 32 bytes
 
 req:
 
@@ -33,8 +33,9 @@ name
 
 res:
 ```
-posts
+inbox
 <id> <date>
+(...)
 ```
 
 read:
@@ -42,7 +43,7 @@ read:
 ```
 read
 id
-<id>
+<post id>
 name
 <name>
 ```
@@ -51,7 +52,7 @@ send:
 
 ```
 send
-reciepient
+name
 <name>
 message
 <message>

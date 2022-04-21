@@ -5,6 +5,7 @@ edition = "2021"
 
 [dependencies]
 openssl = { version = "0.10", features = ["vendored"] }
+mail-project-utils = { path = "../utils" }
 
 [[bin]]
 name = "mail-server"

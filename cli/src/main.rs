@@ -1,8 +1,11 @@
 use std::io::{Read, Write};
-use std::net::TcpStream;
+
+extern crate client;
+
+use client::connection::connect;
 
 fn main() -> std::io::Result<()> {
-    let mut stream = TcpStream::connect("127.0.0.1:8080")?;
+    let mut stream = connect("127.0.0.1:8080");
     stream.write(b"create\n")?;
 
     let mut buf = [0; 4096];
