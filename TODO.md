@@ -15,4 +15,4 @@
     - [ ] implement read
     - [ ] implement send
 - [ ] config
-    - [ ] mailprojectrc
+    - [ ] columbarc

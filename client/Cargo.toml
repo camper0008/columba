@@ -1,7 +1,8 @@
 [package]
-name = "mail-project-client"
+name = "columba-client"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
 openssl = { version = "0.10", features = ["vendored"] }
+columba-utils = { path = "../utils" }

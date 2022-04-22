@@ -1,19 +1,17 @@
 mod handlers;
 
-extern crate utils;
-
 use std::io::{Read, Write};
 use std::net::{TcpListener, TcpStream};
 
 use crate::handlers::create;
-use utils::logger::possible_write_error;
+use columba_utils::logger::possible_write_error;
 
 fn handle_client(mut stream: TcpStream) {
     let mut buf = [0; 4096];
     stream.read(&mut buf).expect("error reading input buffer");
     let mut iter = buf.split(|x| *x == '\n' as u8);
     match iter.nth(0) {
-        Some(b"create") => {}
+        Some(b"create") => create::handle(stream),
         Some(b"send") => {}
         Some(b"read") => {}
         Some(b"inbox") => {}

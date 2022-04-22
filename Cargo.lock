@@ -27,6 +27,33 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
 
 [[package]]
+name = "columba-cli"
+version = "0.1.0"
+dependencies = [
+ "columba-client",
+]
+
+[[package]]
+name = "columba-client"
+version = "0.1.0"
+dependencies = [
+ "columba-utils",
+ "openssl",
+]
+
+[[package]]
+name = "columba-server"
+version = "0.1.0"
+dependencies = [
+ "columba-utils",
+ "openssl",
+]
+
+[[package]]
+name = "columba-utils"
+version = "0.1.0"
+
+[[package]]
 name = "foreign-types"
 version = "0.3.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -46,29 +73,6 @@ name = "libc"
 version = "0.2.124"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "21a41fed9d98f27ab1c6d161da622a4fa35e8a54a8adc24bbf3ddd0ef70b0e50"
-
-[[package]]
-name = "mail-project-cli"
-version = "0.1.0"
-
-[[package]]
-name = "mail-project-client"
-version = "0.1.0"
-dependencies = [
- "openssl",
-]
-
-[[package]]
-name = "mail-project-server"
-version = "0.1.0"
-dependencies = [
- "mail-project-utils",
- "openssl",
-]
-
-[[package]]
-name = "mail-project-utils"
-version = "0.1.0"
 
 [[package]]
 name = "once_cell"
