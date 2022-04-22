@@ -1,18 +1,28 @@
 # todo
 
 - [ ] client
-    - [ ] ability to send requests as specified by `SPECS.md`
-    - [ ] message encryption
+    - [ ] ability to handle requests as specified by `SPECS.md`
+        - [ ] implement create
+        - [ ] implement inbox
+        - [ ] implement read
+            - [ ] message decryption
+        - [ ] implement send
+            - [ ] message encryption
 - [ ] cli
-    - [ ] implement help
-    - [ ] implement create
-    - [ ] implement inbox
-    - [ ] implement read
-    - [ ] implement send
+    - [ ] implement help command
+    - [ ] implement version command
+    - [ ] ability to handle requests as specified by `SPECS.md`
+        - [ ] implement create command
+        - [ ] implement inbox command
+        - [ ] implement read command
+        - [ ] implement send command
 - [ ] server
-    - [ ] implement create
-    - [ ] implement inbox
-    - [ ] implement read
-    - [ ] implement send
+    - [ ] ability to handle requests as specified by `SPECS.md`
+        - [ ] implement create
+        - [ ] implement inbox
+        - [ ] implement read
+        - [ ] implement send
 - [ ] config
     - [ ] columbarc
+- [ ] public key verification akin to ssh-ing into a server
+- [ ] signatures
