@@ -1,59 +1,86 @@
-create:
+# specs
+
+## create
 
 create an alias/username for a public key
 
 username should be max 32 bytes
 
-req:
+### req
 
 ```
-create
+===BEGIN_CREATE_REQ===
 name
 <name>
 public
 <public>
+===END_CREATE_REQ===
 ```
 
-res:
+### res
 
 ```
+===BEGIN_CREATE_RES===
 public
 <public>
+===END_CREATE_RES===
 ```
 
-inbox:
+## inbox
 
-req:
+view inbox of user
+
+### req
 
 ```
-inbox
+===BEGIN_INBOX_REQ===
 name
 <name>
+===END_INBOX_REQ===
 ```
 
-res:
+### res
 ```
-inbox
+===BEGIN_INBOX_RES===
 <id> <date>
 (...)
+===END_INBOX_RES===
 ```
 
-read:
+## read
+
+read an encrypted message from user
+
+### req
 
 ```
-read
+===BEGIN_READ_REQ===
 id
 <post id>
 name
 <name>
+===END_READ_REQ
 ```
 
-send:
+### res
 
 ```
-send
+===BEGIN_READ_RES===
+<encrypted message>
+===END_READ_RES===
+```
+
+## send
+
+send a message to a user
+
+### req
+
+```
+===BEGIN_SEND_REQ===
 name
 <name>
 message
 <message>
+===END_SEND_REQ===
 ```
