@@ -1,6 +1,6 @@
 use crate::error::KeyRingError;
 use crate::keyring::KeyRing;
-use columba_utils::payload::string_payload_to_sized_raw;
+use columba_utils::payload::string_payload_to_raw;
 use std::io::{Read, Write};
 use std::net::TcpStream;
 
@@ -27,9 +27,12 @@ impl Connection {
             .public_key()
             .map_err(|err| ConnectionError::KeyRingError(err))?;
 
-        let string_payload = format!("name\n{}\npublic\n{}\n", name, pub_key);
+        let string_payload = format!(
+            "===BEGIN_CREATE_REQ===\nname\n{}\npublic\n{}\n===END_CREATE_REQ===\n",
+            name, pub_key
+        );
 
-        let raw_payload = string_payload_to_sized_raw(string_payload);
+        let raw_payload = string_payload_to_raw(string_payload);
 
         self.stream
             .write(&raw_payload)
@@ -38,13 +41,18 @@ impl Connection {
         Ok(())
     }
     pub fn inbox(&mut self, name: String) -> Result<(), ConnectionError> {
-        let string_payload = format!("inbox\nname\n{}\n", name);
+        let string_payload = format!(
+            "===BEGIN_INBOX_REQ===\ninbox\nname\n{}\n===END_INBOX_REQ===\n",
+            name
+        );
 
-        let raw_payload = string_payload_to_sized_raw(string_payload);
+        let raw_payload = string_payload_to_raw(string_payload);
 
         self.stream
             .write(&raw_payload)
             .map_err(|_| ConnectionError::IoError)?;
+
+        unimplemented!("buffer parsing not implemented");
 
         let mut buf = [0; 4096];
         self.stream
@@ -55,9 +63,12 @@ impl Connection {
     }
 
     pub fn read(&mut self, name: String) -> Result<(), ConnectionError> {
-        let string_payload = format!("inbox\nname\n{}\n", name);
+        let string_payload = format!(
+            "===BEGIN_READ_REQ===\ninbox\nname\n{}\n===END_READ_REQ===\n",
+            name
+        );
 
-        let raw_payload = string_payload_to_sized_raw(string_payload);
+        let raw_payload = string_payload_to_raw(string_payload);
 
         self.stream
             .write(&raw_payload)

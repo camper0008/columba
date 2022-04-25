@@ -8,3 +8,7 @@ pub fn string_payload_to_sized_raw(payload: String) -> Vec<u8> {
         .map(|c| c as u8)
         .collect()
 }
+
+pub fn string_payload_to_raw(payload: String) -> Vec<u8> {
+    payload.chars().map(|c| c as u8).collect()
+}
