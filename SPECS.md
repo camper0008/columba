@@ -17,15 +17,6 @@ public
 ===END_CREATE_REQ===
 ```
 
-### res
-
-```
-===BEGIN_CREATE_RES===
-public
-<public>
-===END_CREATE_RES===
-```
-
 ## inbox
 
 view inbox of user
