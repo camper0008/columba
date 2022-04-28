@@ -112,3 +112,27 @@ msg
 <"success" | "not found" | "error">
 ===END_SEND_RES===
 ```
+
+## whois
+
+get publickey from alias
+
+### req
+
+```
+===BEGIN_WHOIS_REQ===
+name
+<name>
+===END_WHOIS_REQ===
+```
+
+### res
+
+```
+===BEGIN_WHOIS_RES===
+msg
+<"success" | "not found" | "error">
+public
+<pem public key>
+===END_WHOIS_RES===
+```
