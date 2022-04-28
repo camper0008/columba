@@ -2,12 +2,13 @@
 
 - [ ] client
     - [ ] ability to handle requests as specified by `SPECS.md`
-        - [ ] implement create
-        - [ ] implement inbox
+        - [x] implement create
+        - [x] implement inbox
         - [ ] implement read
             - [ ] message decryption
         - [ ] implement send
             - [ ] message encryption
+    - [x] response parsing
 - [ ] cli
     - [ ] implement help command
     - [ ] implement version command
