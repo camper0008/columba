@@ -15,7 +15,5 @@ pub fn inbox(con: &mut Connection, name: String) -> Result<(), ConnectionError> 
         .write(&raw_payload)
         .map_err(|_| ConnectionError::IoError)?;
 
-    con.parse()?;
-    con.responses.pop();
-    unimplemented!("buffer parsing not implemented");
+    Ok(())
 }

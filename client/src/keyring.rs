@@ -1,5 +1,6 @@
 use crate::keygen::{generate_key_pair, KeyGenError};
 use openssl::error::ErrorStack;
+use openssl::rsa::{Padding, Rsa};
 use std::fs::File;
 use std::io::{Read, Write};
 use std::path::Path;
@@ -93,5 +94,22 @@ impl KeyRing {
     }
     pub fn public_key(&self) -> Result<String, KeyRingError> {
         read_key_file(&self.pub_key_location)
+    }
+
+    pub fn public_encrypt(&self, msg: String) -> Result<String, KeyRingError> {
+        let padding = Padding::PKCS1;
+
+        let mut encrypted_msg_bytes: Vec<u8> = vec![0; 4096];
+
+        let msg_bytes: Vec<u8> = msg.bytes().collect();
+
+        let public_key_bytes = self.public_key()?.bytes().collect::<Vec<u8>>();
+
+        let rsa = Rsa::public_key_from_pem(&public_key_bytes)
+            .map_err(|err| KeyRingError::OpenSSLError(err))?;
+        rsa.public_encrypt(&msg_bytes, encrypted_msg_bytes.as_mut_slice(), padding)
+            .map_err(|err| KeyRingError::OpenSSLError(err))?;
+
+        Ok(encrypted_msg_bytes.into_iter().map(|b| b as char).collect())
     }
 }
