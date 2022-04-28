@@ -33,19 +33,7 @@ fn parse_create(iter: &mut IntoIter<String>) -> Response {
     Response::Create { msg: msg_value }
 }
 
-fn parse_inbox(iter: &mut IntoIter<String>) -> Response {
-    let _msg_field = iter.next();
-    let msg_value = iter
-        .next()
-        .expect("recieved invalid inbox response from server");
-
-    if msg_value != "success" {
-        return Response::Inbox {
-            msg: msg_value,
-            inbox: None,
-        };
-    }
-
+fn parse_inbox_success(iter: &mut IntoIter<String>) -> Response {
     let _inbox_field = iter.next();
     let inbox = iter
         .take_while(|l| l != "===END_INBOX_RES===")
@@ -65,15 +53,32 @@ fn parse_inbox(iter: &mut IntoIter<String>) -> Response {
         .collect();
 
     Response::Inbox {
-        msg: msg_value,
+        msg: String::from("success"),
         inbox: Some(inbox),
     }
+}
+
+fn parse_inbox(iter: &mut IntoIter<String>) -> Response {
+    let _msg_field = iter.next();
+    let msg_value = iter
+        .next()
+        .expect("recieved invalid inbox response from server");
+
+    if msg_value != "success" {
+        return Response::Inbox {
+            msg: msg_value,
+            inbox: None,
+        };
+    }
+
+    parse_inbox_success(iter)
 }
 fn parse_read(iter: &mut IntoIter<String>) -> Response {
     let _msg_field = iter.next();
     let msg_value = iter
         .next()
         .expect("recieved invalid inbox response from server");
+
     if msg_value != "success" {
         return Response::Read {
             msg: msg_value,
