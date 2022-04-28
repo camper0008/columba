@@ -9,7 +9,7 @@ fn file_exists(file_location: &str) -> bool {
     Path::new(file_location).exists()
 }
 
-fn create_key_file(key_location: &str) -> Result<(), KeyRingError> {
+fn create_and_generate_key_file(key_location: &str) -> Result<(), KeyRingError> {
     let pair = generate_key_pair().map_err(|err| KeyRingError::KeyGenError(err))?;
 
     let private = pair
@@ -32,13 +32,13 @@ fn create_key_file(key_location: &str) -> Result<(), KeyRingError> {
     Ok(())
 }
 
-fn create_key_file_if_doesnt_exist(key_location: &str) -> Result<(), KeyRingError> {
+fn create_and_generate_key_file_if_doesnt_exist(key_location: &str) -> Result<(), KeyRingError> {
     let pub_key_location = key_location.to_owned() + ".pub";
     if file_exists(key_location) || file_exists(&pub_key_location) {
         return Err(KeyRingError::FileExists);
     }
 
-    create_key_file(key_location)
+    create_and_generate_key_file(key_location)
 }
 
 fn read_key_file(key_location: &str) -> Result<String, KeyRingError> {
@@ -66,7 +66,7 @@ pub struct KeyRing {
 
 impl KeyRing {
     pub fn new(key_location: String) -> Result<Self, KeyRingError> {
-        create_key_file_if_doesnt_exist(&key_location)?;
+        create_and_generate_key_file_if_doesnt_exist(&key_location)?;
 
         let pub_key_location = key_location.clone() + ".pub";
 
