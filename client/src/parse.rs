@@ -25,17 +25,78 @@ pub enum Response {
     },
 }
 
-fn parse_create(_iter: &mut IntoIter<String>) -> Response {
-    unimplemented!()
+fn parse_create(iter: &mut IntoIter<String>) -> Response {
+    let _msg_field = iter.next();
+    let msg_value = iter
+        .next()
+        .expect("recieved invalid inbox response from server");
+    Response::Create { msg: msg_value }
 }
-fn parse_inbox(_iter: &mut IntoIter<String>) -> Response {
-    unimplemented!()
+
+fn parse_inbox(iter: &mut IntoIter<String>) -> Response {
+    let _msg_field = iter.next();
+    let msg_value = iter
+        .next()
+        .expect("recieved invalid inbox response from server");
+
+    if msg_value != "success" {
+        return Response::Inbox {
+            msg: msg_value,
+            inbox: None,
+        };
+    }
+
+    let _inbox_field = iter.next();
+    let inbox = iter
+        .take_while(|l| l != "===END_INBOX_RES===")
+        .map(|l| {
+            let mut split = l.splitn(2, " ");
+            let id = split
+                .next()
+                .expect("recieved invalid inbox response from server");
+            let date = split
+                .next()
+                .expect("recieved invalid inbox response from server");
+            InboxItem {
+                id: id.to_string(),
+                date: date.to_string(),
+            }
+        })
+        .collect();
+
+    Response::Inbox {
+        msg: msg_value,
+        inbox: Some(inbox),
+    }
 }
-fn parse_read(_iter: &mut IntoIter<String>) -> Response {
-    unimplemented!()
+fn parse_read(iter: &mut IntoIter<String>) -> Response {
+    let _msg_field = iter.next();
+    let msg_value = iter
+        .next()
+        .expect("recieved invalid inbox response from server");
+    if msg_value != "success" {
+        return Response::Read {
+            msg: msg_value,
+            read: None,
+        };
+    }
+
+    let _read_field = iter.next();
+    let read = iter
+        .take_while(|l| l != "===END_READ_RES===")
+        .reduce(|acc, n| acc + "\n" + &n);
+
+    Response::Read {
+        msg: msg_value,
+        read,
+    }
 }
-fn parse_send(_iter: &mut IntoIter<String>) -> Response {
-    unimplemented!()
+fn parse_send(iter: &mut IntoIter<String>) -> Response {
+    let _msg_field = iter.next();
+    let msg_value = iter
+        .next()
+        .expect("recieved invalid inbox response from server");
+    Response::Send { msg: msg_value }
 }
 
 pub fn parse_response(lines: Vec<String>) -> Vec<Response> {
