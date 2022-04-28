@@ -25,30 +25,45 @@ pub enum Response {
     },
 }
 
+fn assert_end_header_valid(iter: &mut IntoIter<String>, header: &str) {
+    let res_end_header = iter.next();
+    assert_eq!(res_end_header.expect("end header does not exist"), header);
+}
+
 fn parse_create(iter: &mut IntoIter<String>) -> Response {
     let _msg_field = iter.next();
     let msg_value = iter
         .next()
         .expect("recieved invalid inbox response from server");
+
+    assert_end_header_valid(iter, "===END_CREATE_RES===");
+
     Response::Create { msg: msg_value }
+}
+
+fn split_inbox_message(line: String) -> (String, String) {
+    let mut split = line.splitn(2, " ");
+
+    let id = split
+        .next()
+        .expect("recieved invalid inbox response from server")
+        .to_string();
+
+    let date = split
+        .next()
+        .expect("recieved invalid inbox response from server")
+        .to_string();
+
+    (id, date)
 }
 
 fn parse_inbox_success(iter: &mut IntoIter<String>) -> Response {
     let _inbox_field = iter.next();
     let inbox = iter
-        .take_while(|l| l != "===END_INBOX_RES===")
-        .map(|l| {
-            let mut split = l.splitn(2, " ");
-            let id = split
-                .next()
-                .expect("recieved invalid inbox response from server");
-            let date = split
-                .next()
-                .expect("recieved invalid inbox response from server");
-            InboxItem {
-                id: id.to_string(),
-                date: date.to_string(),
-            }
+        .take_while(|line| line != "===END_INBOX_RES===")
+        .map(|line| {
+            let (id, date) = split_inbox_message(line);
+            InboxItem { id, date }
         })
         .collect();
 
@@ -101,6 +116,9 @@ fn parse_send(iter: &mut IntoIter<String>) -> Response {
     let msg_value = iter
         .next()
         .expect("recieved invalid inbox response from server");
+
+    assert_end_header_valid(iter, "===END_SEND_RES===");
+
     Response::Send { msg: msg_value }
 }
 
