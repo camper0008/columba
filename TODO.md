@@ -5,9 +5,9 @@
         - [x] implement create
         - [x] implement inbox
         - [ ] implement read
-            - [ ] message decryption
-        - [ ] implement send
-            - [ ] message encryption
+            - [ ] message decryption?
+        - [x] implement send
+            - [x] message encryption
     - [x] response parsing
 - [ ] cli
     - [ ] implement help command
