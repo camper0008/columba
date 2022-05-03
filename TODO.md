@@ -15,16 +15,22 @@
         - [x] implement send
         - [x] implement whois
 - [ ] cli
-    - [ ] implement help command
-    - [ ] implement version command
-    - [ ] ability to handle requests as specified by `SPECS.md`
-        - [ ] implement create command
-        - [ ] implement inbox command
-        - [ ] implement read command
-            - [ ] message decryption?
-        - [ ] implement send command
-             - [ ] whois
-             - [ ] message encryption
+    - [ ] help command
+    - [ ] create command
+        - [ ] send request
+        - [ ] handle response
+    - [ ] inbox command
+        - [ ] send request
+        - [ ] handle response
+    - [ ] read command
+        - [ ] send request
+        - [ ] handle response
+            - [ ] message decryption
+    - [ ] send command
+        - [ ] send request
+            - [ ] whois
+            - [ ] message encryption
+        - [ ] handle response
 - [ ] server
     - [ ] ability to handle requests as specified by `SPECS.md`
         - [ ] implement create
@@ -34,8 +40,8 @@
         - [ ] implement whois
 - [ ] crypto
     - [x] keyring
+        - [ ] keyring trait?
     - [x] keygen
-    - [ ] keyring trait?
 - [ ] config
     - [ ] columbarc
 - [ ] public key verification akin to ssh-ing into a server
