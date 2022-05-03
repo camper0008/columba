@@ -17,3 +17,5 @@ $ columba-cli connect <URL>
 crypto is handled by the implementors of the client, e.g. `columba-cli`, the client by default does not encrypt messages
 
 the package columba-crypto is ment to help with this implementation
+
+this is important to note if you wish to make your own implementation
