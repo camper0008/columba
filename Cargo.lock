@@ -37,7 +37,15 @@ dependencies = [
 name = "columba-client"
 version = "0.1.0"
 dependencies = [
+ "columba-crypto",
  "columba-utils",
+ "openssl",
+]
+
+[[package]]
+name = "columba-crypto"
+version = "0.1.0"
+dependencies = [
  "openssl",
 ]
 

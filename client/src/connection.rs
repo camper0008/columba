@@ -1,7 +1,6 @@
 use crate::api::handlers;
-use crate::error::KeyRingError;
-use crate::keyring::KeyRing;
 use crate::parse::{parse_response, Response};
+use columba_crypto::keyring::{KeyRing, KeyRingError};
 use std::io::Read;
 use std::net::TcpStream;
 
@@ -29,13 +28,8 @@ impl Connection {
     pub fn inbox(&mut self, name: String) -> Result<(), ConnectionError> {
         handlers::inbox(self, name)
     }
-    pub fn send(
-        &mut self,
-        name: String,
-        msg: String,
-        receiver_keyring: KeyRing,
-    ) -> Result<(), ConnectionError> {
-        handlers::send(self, name, msg, receiver_keyring)
+    pub fn send(&mut self, name: String, msg: String) -> Result<(), ConnectionError> {
+        handlers::send(self, name, msg)
     }
     pub fn read(&mut self, name: String) -> Result<(), ConnectionError> {
         handlers::read(self, name)
