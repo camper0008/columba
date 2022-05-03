@@ -32,6 +32,10 @@
         - [ ] implement read
         - [ ] implement send
         - [ ] implement whois
+- [ ] crypto
+    - [x] keyring
+    - [x] keygen
+    - [ ] keyring trait?
 - [ ] config
     - [ ] columbarc
 - [ ] public key verification akin to ssh-ing into a server

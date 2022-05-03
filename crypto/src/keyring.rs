@@ -41,6 +41,29 @@ fn create_and_generate_key_file_if_doesnt_exist(key_location: &str) -> Result<()
     create_and_generate_key_file(key_location)
 }
 
+fn create_key_file_if_doesnt_exist(
+    key_location: &str,
+    public: String,
+    private: String,
+) -> Result<(), KeyRingError> {
+    let pub_key_location = key_location.to_owned() + ".pub";
+    if file_exists(key_location) || file_exists(&pub_key_location) {
+        return Err(KeyRingError::FileExists);
+    }
+
+    File::create(key_location)
+        .map_err(|_| KeyRingError::IoError)?
+        .write_all(&private.bytes().collect::<Vec<u8>>())
+        .map_err(|_| KeyRingError::IoError)?;
+
+    File::create(pub_key_location)
+        .map_err(|_| KeyRingError::IoError)?
+        .write_all(&public.bytes().collect::<Vec<u8>>())
+        .map_err(|_| KeyRingError::IoError)?;
+
+    Ok(())
+}
+
 fn read_key_file(key_location: &str) -> Result<String, KeyRingError> {
     let mut buf = String::new();
     File::open(key_location)
@@ -65,8 +88,23 @@ pub struct KeyRing {
 }
 
 impl KeyRing {
-    pub fn new(key_location: String) -> Result<Self, KeyRingError> {
+    pub fn generate(key_location: String) -> Result<Self, KeyRingError> {
         create_and_generate_key_file_if_doesnt_exist(&key_location)?;
+
+        let pub_key_location = key_location.clone() + ".pub";
+
+        Ok(Self {
+            key_location,
+            pub_key_location,
+        })
+    }
+
+    pub fn new(
+        key_location: String,
+        private: String,
+        public: String,
+    ) -> Result<Self, KeyRingError> {
+        create_key_file_if_doesnt_exist(&key_location, private, public)?;
 
         let pub_key_location = key_location.clone() + ".pub";
 
