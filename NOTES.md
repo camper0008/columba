@@ -1,3 +1,4 @@
 # notes
 
-- move encryption/decryption out of the client, i.e. its own package columba\_crypto or similar
+- enc/dec with crypto on cli using whois & keyrings
+- KeyRing trait?
