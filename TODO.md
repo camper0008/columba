@@ -16,6 +16,8 @@
         - [x] implement whois
 - [ ] cli
     - [ ] help command
+    - [ ] exit command
+    - [ ] clear command
     - [ ] create command
         - [ ] send request
         - [ ] handle response
