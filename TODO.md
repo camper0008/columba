@@ -4,11 +4,15 @@
     - [ ] ability to handle requests as specified by `SPECS.md`
         - [x] implement create
         - [x] implement inbox
-        - [ ] implement read
-            - [ ] message decryption?
+        - [x] implement read
         - [x] implement send
-            - [x] message encryption
-    - [x] response parsing
+        - [ ] implement whois
+    - [ ] response parsing
+        - [x] implement create
+        - [x] implement inbox
+        - [x] implement read
+        - [x] implement send
+        - [ ] implement whois
 - [ ] cli
     - [ ] implement help command
     - [ ] implement version command
@@ -16,13 +20,17 @@
         - [ ] implement create command
         - [ ] implement inbox command
         - [ ] implement read command
+            - [ ] message decryption?
         - [ ] implement send command
+             - [ ] whois
+             - [ ] message encryption
 - [ ] server
     - [ ] ability to handle requests as specified by `SPECS.md`
         - [ ] implement create
         - [ ] implement inbox
         - [ ] implement read
         - [ ] implement send
+        - [ ] implement whois
 - [ ] config
     - [ ] columbarc
 - [ ] public key verification akin to ssh-ing into a server
