@@ -131,8 +131,15 @@ name
 ```
 ===BEGIN_WHOIS_RES===
 msg
-<"success" | "not found" | "error">
+<"success">
 public
 <pem public key>
+===END_WHOIS_RES===
+```
+
+```
+===BEGIN_WHOIS_RES===
+msg
+<"not found" | "error">
 ===END_WHOIS_RES===
 ```
