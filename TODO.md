@@ -15,24 +15,30 @@
         - [x] implement send
         - [x] implement whois
 - [ ] cli
-    - [ ] help command
-    - [ ] exit command
-    - [ ] clear command
-    - [ ] create command
-        - [ ] send request
-        - [ ] handle response
-    - [ ] inbox command
-        - [ ] send request
-        - [ ] handle response
-    - [ ] read command
-        - [ ] send request
-        - [ ] handle response
-            - [ ] message decryption
-    - [ ] send command
-        - [ ] send request
-            - [ ] whois
-            - [ ] message encryption
-        - [ ] handle response
+    - [ ] flags
+        - [ ] ip address (--server, -s)
+        - [ ] keyring (--keyring, -k)
+    - [ ] prompt
+        - [ ] help command
+        - [ ] exit command
+        - [ ] clear command
+        - [ ] keyring command
+        - [ ] create command
+            - [ ] send request
+                - [ ] generate keyring
+            - [ ] handle response
+        - [ ] inbox command
+            - [ ] send request
+            - [ ] handle response
+        - [ ] read command
+            - [ ] send request
+            - [ ] handle response
+                - [ ] message decryption
+        - [ ] send command
+            - [ ] send request
+                - [ ] whois
+                - [ ] message encryption
+            - [ ] handle response
 - [ ] server
     - [ ] ability to handle requests as specified by `SPECS.md`
         - [ ] implement create
