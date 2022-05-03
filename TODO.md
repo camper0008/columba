@@ -1,18 +1,19 @@
 # todo
 
-- [ ] client
-    - [ ] ability to handle requests as specified by `SPECS.md`
+- [x] client
+    - [x] connect to server
+    - [x] send requests as specified by `SPECS.md`
         - [x] implement create
         - [x] implement inbox
         - [x] implement read
         - [x] implement send
-        - [ ] implement whois
-    - [ ] response parsing
+        - [x] implement whois
+    - [x] response parsing
         - [x] implement create
         - [x] implement inbox
         - [x] implement read
         - [x] implement send
-        - [ ] implement whois
+        - [x] implement whois
 - [ ] cli
     - [ ] implement help command
     - [ ] implement version command

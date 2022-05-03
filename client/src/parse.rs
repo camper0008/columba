@@ -23,6 +23,10 @@ pub enum Response {
     Send {
         msg: String,
     },
+    Whois {
+        msg: String,
+        public: Option<String>,
+    },
 }
 
 fn assert_end_header_valid(iter: &mut IntoIter<String>, header: &str) {
@@ -32,13 +36,13 @@ fn assert_end_header_valid(iter: &mut IntoIter<String>, header: &str) {
 
 fn parse_create(iter: &mut IntoIter<String>) -> Response {
     let _msg_field = iter.next();
-    let msg_value = iter
+    let msg = iter
         .next()
-        .expect("recieved invalid inbox response from server");
+        .expect("recieved invalid create response from server");
 
     assert_end_header_valid(iter, "===END_CREATE_RES===");
 
-    Response::Create { msg: msg_value }
+    Response::Create { msg }
 }
 
 fn split_inbox_message(line: String) -> (String, String) {
@@ -75,30 +79,24 @@ fn parse_inbox_success(iter: &mut IntoIter<String>) -> Response {
 
 fn parse_inbox(iter: &mut IntoIter<String>) -> Response {
     let _msg_field = iter.next();
-    let msg_value = iter
+    let msg = iter
         .next()
         .expect("recieved invalid inbox response from server");
 
-    if msg_value != "success" {
-        return Response::Inbox {
-            msg: msg_value,
-            inbox: None,
-        };
+    if msg != "success" {
+        return Response::Inbox { msg, inbox: None };
     }
 
     parse_inbox_success(iter)
 }
 fn parse_read(iter: &mut IntoIter<String>) -> Response {
     let _msg_field = iter.next();
-    let msg_value = iter
+    let msg = iter
         .next()
-        .expect("recieved invalid inbox response from server");
+        .expect("recieved invalid read response from server");
 
-    if msg_value != "success" {
-        return Response::Read {
-            msg: msg_value,
-            read: None,
-        };
+    if msg != "success" {
+        return Response::Read { msg, read: None };
     }
 
     let _read_field = iter.next();
@@ -106,20 +104,35 @@ fn parse_read(iter: &mut IntoIter<String>) -> Response {
         .take_while(|l| l != "===END_READ_RES===")
         .reduce(|acc, n| acc + "\n" + &n);
 
-    Response::Read {
-        msg: msg_value,
-        read,
-    }
+    Response::Read { msg, read }
 }
 fn parse_send(iter: &mut IntoIter<String>) -> Response {
     let _msg_field = iter.next();
-    let msg_value = iter
+    let msg = iter
         .next()
-        .expect("recieved invalid inbox response from server");
+        .expect("recieved invalid send response from server");
 
     assert_end_header_valid(iter, "===END_SEND_RES===");
 
-    Response::Send { msg: msg_value }
+    Response::Send { msg }
+}
+
+fn parse_whois(iter: &mut IntoIter<String>) -> Response {
+    let _msg_field = iter.next();
+    let msg = iter
+        .next()
+        .expect("recieved invalid whois response from server");
+
+    if msg != "success" {
+        return Response::Whois { msg, public: None };
+    }
+
+    let _public_field = iter.next();
+    let public = iter
+        .take_while(|l| l != "===END_WHOIS_RES===")
+        .reduce(|acc, n| acc + "\n" + &n);
+
+    Response::Whois { msg, public }
 }
 
 pub fn parse_response(lines: Vec<String>) -> Vec<Response> {
@@ -127,6 +140,7 @@ pub fn parse_response(lines: Vec<String>) -> Vec<Response> {
     const INBOX_HEADER: &str = "===BEGIN_INBOX_RES===";
     const READ_HEADER: &str = "===BEGIN_READ_RES===";
     const SEND_HEADER: &str = "===BEGIN_SEND_RES===";
+    const WHOIS_HEADER: &str = "===BEGIN_WHOIS_RES===";
 
     let mut res = Vec::new();
 
@@ -142,6 +156,7 @@ pub fn parse_response(lines: Vec<String>) -> Vec<Response> {
             INBOX_HEADER => parse_inbox(&mut lines_iter),
             READ_HEADER => parse_read(&mut lines_iter),
             SEND_HEADER => parse_send(&mut lines_iter),
+            WHOIS_HEADER => parse_whois(&mut lines_iter),
             _ => Response::Unknown,
         });
     }

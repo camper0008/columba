@@ -57,6 +57,30 @@ fn send_res(msg: &str) -> Vec<String> {
         .collect()
 }
 
+fn whois_res(success: bool) -> Vec<String> {
+    (if success {
+        vec![
+            "===BEGIN_WHOIS_RES===",
+            "msg",
+            "success",
+            "read",
+            "abc",
+            "def",
+            "===END_WHOIS_RES===",
+        ]
+    } else {
+        vec![
+            "===BEGIN_WHOIS_RES===",
+            "msg",
+            "error",
+            "===END_WHOIS_RES===",
+        ]
+    })
+    .into_iter()
+    .map(|s| String::from(s))
+    .collect()
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -149,6 +173,7 @@ mod tests {
             }
         );
     }
+
     #[test]
     fn test_read_res_error() {
         let error_res = parse_response(read_res(false))
@@ -184,6 +209,36 @@ mod tests {
             def_res,
             Response::Send {
                 msg: String::from("def")
+            }
+        );
+    }
+
+    #[test]
+    fn test_whois_res_success() {
+        let success_res = parse_response(whois_res(true))
+            .into_iter()
+            .nth(0)
+            .expect("parse response returned empty vec");
+        assert_eq!(
+            success_res,
+            Response::Whois {
+                msg: String::from("success"),
+                public: Some(String::from("abc\ndef")),
+            }
+        );
+    }
+
+    #[test]
+    fn test_whois_res_error() {
+        let error_res = parse_response(whois_res(false))
+            .into_iter()
+            .nth(0)
+            .expect("parse response returned empty vec");
+        assert_eq!(
+            error_res,
+            Response::Whois {
+                msg: String::from("error"),
+                public: None,
             }
         );
     }
