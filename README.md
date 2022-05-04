@@ -9,13 +9,13 @@ This project is ment to be a learning experience rather than a real product. Whi
 Example use of cli:
 
 ```
-$ columba-cli connect <URL>
+$ columba-cli -s columba.example.com -k /path/to/keyring
 ```
 
 ## notice
 
-crypto is handled by the implementors of the client, e.g. `columba-cli`, the client by default does not encrypt messages
+Crypto is handled by the implementors of the client, e.g. `columba-cli`, the client by default does not encrypt messages.
 
-the package columba-crypto is ment to help with this implementation
+The package columba-crypto is ment to help with this implementation.
 
-this is important to note if you wish to make your own implementation
+This is important to note if you wish to make your own implementation, e.g. `columba-tui` or `columba-gui`.
