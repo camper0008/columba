@@ -1,5 +1,5 @@
 mod cmd;
-mod parse;
+mod prompt_parse;
 mod utils;
 use crate::utils::{display_prompt, parse_stdin};
 

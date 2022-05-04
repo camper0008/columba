@@ -1,4 +1,4 @@
-use crate::parse::{parse_input, Command};
+use crate::prompt_parse::{parse_input, Command};
 use std::io::{stdin, stdout, Write};
 
 pub fn parse_stdin() -> Command {
