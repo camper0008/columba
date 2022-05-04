@@ -1,14 +1,12 @@
+mod flags;
 mod prompt;
 mod utils;
 use crate::prompt::run::run;
-use crate::utils::{display_prompt, parse_stdin};
+use crate::utils::{display_introduction, display_prompt, parse_stdin};
 
 fn main() -> ! {
-    println!(
-        "columba-cli {}",
-        option_env!("CARGO_PKG_VERSION").unwrap_or("")
-    );
-    println!("type 'help' for help");
+    let given_flags = flags::parse();
+    display_introduction();
     loop {
         display_prompt();
         run(parse_stdin());

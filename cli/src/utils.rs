@@ -15,3 +15,11 @@ pub fn display_prompt() {
     print!("-> ");
     flush_stdout();
 }
+
+pub fn display_introduction() {
+    println!(
+        "columba-cli {}",
+        option_env!("CARGO_PKG_VERSION").unwrap_or("")
+    );
+    println!("type 'help' for help");
+}

@@ -15,6 +15,7 @@
         - [x] implement send
         - [x] implement whois
 - [ ] cli
+    - [x] flag parsing
     - [ ] flags
         - [ ] ip address (--url, -u)
         - [ ] keyring (--keyring, -k)
