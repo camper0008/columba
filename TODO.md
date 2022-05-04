@@ -16,7 +16,7 @@
         - [x] implement whois
 - [ ] cli
     - [ ] flags
-        - [ ] ip address (--server, -s)
+        - [ ] ip address (--url, -u)
         - [ ] keyring (--keyring, -k)
         - [ ] help (--help, -h)
     - [x] prompt parsing

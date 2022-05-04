@@ -6,12 +6,6 @@ The name 'Columba' derives from the genus of birds [Columba](https://en.wikipedi
 
 This project is ment to be a learning experience rather than a real product. While it may prove to be secure enough to use, I do not guarantee this is the case or always will be the case, so use at your own risk.
 
-Example use of cli:
-
-```
-$ columba-cli -s columba.example.com -k /path/to/keyring
-```
-
 ## notice
 
 Crypto is handled by the implementors of the client, e.g. `columba-cli`, the client by default does not encrypt messages.
