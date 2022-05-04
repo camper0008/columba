@@ -18,7 +18,16 @@
     - [ ] flags
         - [ ] ip address (--server, -s)
         - [ ] keyring (--keyring, -k)
-    - [ ] prompt
+    - [x] prompt parsing
+        - [x] help command
+        - [x] exit command
+        - [x] clear command
+        - [x] keyring command
+        - [x] create command
+        - [x] inbox command
+        - [x] read command
+        - [x] send command
+    - [ ] prompt handling
         - [ ] help command
         - [ ] exit command
         - [ ] clear command

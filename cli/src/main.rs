@@ -1,8 +1,7 @@
 mod cmd;
-mod input;
+mod parse;
 mod utils;
-use crate::input::parse_stdin;
-use crate::utils::display_prompt;
+use crate::utils::{display_prompt, parse_stdin};
 
 fn main() -> ! {
     println!(
