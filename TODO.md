@@ -18,6 +18,7 @@
     - [ ] flags
         - [ ] ip address (--server, -s)
         - [ ] keyring (--keyring, -k)
+        - [ ] help (--help, -h)
     - [x] prompt parsing
         - [x] help command
         - [x] exit command
