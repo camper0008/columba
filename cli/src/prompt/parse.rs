@@ -87,8 +87,8 @@ fn parse_send(args: Vec<&str>) -> Command {
     Command::Send { name, msg }
 }
 
-pub fn parse_input(cmd: String) -> Command {
-    let split: Vec<&str> = cmd.split(" ").map(|s| s.trim()).collect();
+pub fn parse(prompt: String) -> Command {
+    let split: Vec<&str> = prompt.split(" ").map(|s| s.trim()).collect();
 
     match split.get(0).unwrap().to_lowercase().as_str() {
         "help" => Command::Help,
@@ -99,8 +99,8 @@ pub fn parse_input(cmd: String) -> Command {
         "inbox" => parse_inbox(split),
         "read" => parse_read(split),
         "send" => parse_send(split),
-        other_cmd => Command::Error {
-            msg: format!("unrecognized command '{other_cmd}', try 'help'"),
+        other_prompt => Command::Error {
+            msg: format!("unrecognized command '{other_prompt}', try 'help'"),
         },
     }
 }

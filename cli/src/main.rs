@@ -1,6 +1,6 @@
-mod cmd;
-mod prompt_parse;
+mod prompt;
 mod utils;
+use crate::prompt::run::run;
 use crate::utils::{display_prompt, parse_stdin};
 
 fn main() -> ! {
@@ -11,6 +11,6 @@ fn main() -> ! {
     println!("type 'help' for help");
     loop {
         display_prompt();
-        cmd::run(parse_stdin());
+        run(parse_stdin());
     }
 }

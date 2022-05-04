@@ -1,10 +1,10 @@
-use crate::prompt_parse::{parse_input, Command};
+use crate::prompt::parse::{parse, Command};
 use std::io::{stdin, stdout, Write};
 
 pub fn parse_stdin() -> Command {
-    let mut cmd = String::new();
-    stdin().read_line(&mut cmd).unwrap();
-    parse_input(cmd)
+    let mut prompt = String::new();
+    stdin().read_line(&mut prompt).unwrap();
+    parse(prompt)
 }
 
 fn flush_stdout() {

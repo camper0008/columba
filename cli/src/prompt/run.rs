@@ -1,4 +1,4 @@
-use crate::prompt_parse::Command;
+use crate::prompt::parse::Command;
 
 pub fn run(cmd: Command) {
     match cmd {
