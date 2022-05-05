@@ -44,7 +44,7 @@ impl Connection {
             .map_err(|_| ConnectionError::IoError)?;
 
         let split = (&buf)
-            .split(|b| *b == '\n' as u8)
+            .split(|b| *b == b'\n')
             .map(|bytes| String::from_utf8_lossy(bytes).into_owned())
             .collect();
         self.responses.extend(parse_response(split));

@@ -3,7 +3,7 @@ use columba_client::parse::{parse_response, InboxItem, Response};
 fn create_res(msg: &str) -> Vec<String> {
     vec!["===BEGIN_CREATE_RES===", "msg", msg, "===END_CREATE_RES==="]
         .into_iter()
-        .map(|s| String::from(s))
+        .map(String::from)
         .collect()
 }
 
@@ -27,7 +27,7 @@ fn inbox_res(success: bool) -> Vec<String> {
         ]
     })
     .into_iter()
-    .map(|s| String::from(s))
+    .map(String::from)
     .collect()
 }
 
@@ -46,14 +46,14 @@ fn read_res(success: bool) -> Vec<String> {
         vec!["===BEGIN_READ_RES===", "msg", "error", "===END_READ_RES==="]
     })
     .into_iter()
-    .map(|s| String::from(s))
+    .map(String::from)
     .collect()
 }
 
 fn send_res(msg: &str) -> Vec<String> {
     vec!["===BEGIN_SEND_RES===", "msg", msg, "===END_SEND_RES==="]
         .into_iter()
-        .map(|s| String::from(s))
+        .map(String::from)
         .collect()
 }
 
@@ -77,7 +77,7 @@ fn whois_res(success: bool) -> Vec<String> {
         ]
     })
     .into_iter()
-    .map(|s| String::from(s))
+    .map(String::from)
     .collect()
 }
 
@@ -88,8 +88,7 @@ mod tests {
     #[test]
     fn test_create_res() {
         let abc_res = parse_response(create_res("abc"))
-            .into_iter()
-            .nth(0)
+            .into_iter().next()
             .expect("parse response returned empty vec");
         assert_eq!(
             abc_res,
@@ -98,8 +97,7 @@ mod tests {
             }
         );
         let def_res = parse_response(create_res("def"))
-            .into_iter()
-            .nth(0)
+            .into_iter().next()
             .expect("parse response returned empty vec");
         assert_eq!(
             def_res,
@@ -112,8 +110,7 @@ mod tests {
     #[test]
     fn test_inbox_res_success() {
         let success_res = parse_response(inbox_res(true))
-            .into_iter()
-            .nth(0)
+            .into_iter().next()
             .expect("parse response returned empty vec");
         assert_eq!(
             success_res,
@@ -136,8 +133,7 @@ mod tests {
     #[test]
     fn test_inbox_res_error() {
         let error_res = parse_response(inbox_res(false))
-            .into_iter()
-            .nth(0)
+            .into_iter().next()
             .expect("parse response returned empty vec");
         assert_eq!(
             error_res,
@@ -147,8 +143,7 @@ mod tests {
             }
         );
         let error_res = parse_response(inbox_res(false))
-            .into_iter()
-            .nth(0)
+            .into_iter().next()
             .expect("parse response returned empty vec");
         assert_eq!(
             error_res,
@@ -162,8 +157,7 @@ mod tests {
     #[test]
     fn test_read_res_success() {
         let success_res = parse_response(read_res(true))
-            .into_iter()
-            .nth(0)
+            .into_iter().next()
             .expect("parse response returned empty vec");
         assert_eq!(
             success_res,
@@ -177,8 +171,7 @@ mod tests {
     #[test]
     fn test_read_res_error() {
         let error_res = parse_response(read_res(false))
-            .into_iter()
-            .nth(0)
+            .into_iter().next()
             .expect("parse response returned empty vec");
         assert_eq!(
             error_res,
@@ -192,8 +185,7 @@ mod tests {
     #[test]
     fn test_send_res() {
         let abc_res = parse_response(send_res("abc"))
-            .into_iter()
-            .nth(0)
+            .into_iter().next()
             .expect("parse response returned empty vec");
         assert_eq!(
             abc_res,
@@ -202,8 +194,7 @@ mod tests {
             }
         );
         let def_res = parse_response(send_res("def"))
-            .into_iter()
-            .nth(0)
+            .into_iter().next()
             .expect("parse response returned empty vec");
         assert_eq!(
             def_res,
@@ -216,8 +207,7 @@ mod tests {
     #[test]
     fn test_whois_res_success() {
         let success_res = parse_response(whois_res(true))
-            .into_iter()
-            .nth(0)
+            .into_iter().next()
             .expect("parse response returned empty vec");
         assert_eq!(
             success_res,
@@ -231,8 +221,7 @@ mod tests {
     #[test]
     fn test_whois_res_error() {
         let error_res = parse_response(whois_res(false))
-            .into_iter()
-            .nth(0)
+            .into_iter().next()
             .expect("parse response returned empty vec");
         assert_eq!(
             error_res,

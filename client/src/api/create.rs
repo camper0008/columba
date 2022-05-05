@@ -7,7 +7,7 @@ use std::io::Write;
 pub fn create(con: &mut Connection, name: String, keyring: KeyRing) -> Result<(), ConnectionError> {
     let pub_key = keyring
         .public_key()
-        .map_err(|err| ConnectionError::KeyRingError(err))?;
+        .map_err(ConnectionError::KeyRingError)?;
 
     let string_payload = format!(
         "===BEGIN_CREATE_REQ===\nname\n{}\npublic\n{}\n===END_CREATE_REQ===\n",

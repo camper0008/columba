@@ -46,7 +46,7 @@ fn parse_create(iter: &mut IntoIter<String>) -> Response {
 }
 
 fn split_inbox_message(line: String) -> (String, String) {
-    let mut split = line.splitn(2, " ");
+    let mut split = line.splitn(2, ' ');
 
     let id = split
         .next()

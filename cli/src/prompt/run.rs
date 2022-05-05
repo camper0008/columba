@@ -1,7 +1,5 @@
 use crate::prompt::parse::Command;
 
-pub fn run(cmd: Command) {
-    match cmd {
-        _ => unimplemented!(),
-    }
+pub fn run(_cmd: Command) {
+    unimplemented!()
 }

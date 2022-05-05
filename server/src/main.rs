@@ -8,9 +8,11 @@ use columba_utils::logger::possible_write_error;
 
 fn handle_client(mut stream: TcpStream) {
     let mut buf = [0; 4096];
-    stream.read(&mut buf).expect("error reading input buffer");
-    let mut iter = buf.split(|x| *x == '\n' as u8);
-    match iter.nth(0) {
+    let _ = stream
+        .read_exact(&mut buf)
+        .expect("error reading input buffer");
+    let mut iter = buf.split(|x| *x == b'\n');
+    match iter.next() {
         Some(b"create") => create::handle(stream),
         Some(b"send") => {}
         Some(b"read") => {}

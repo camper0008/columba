@@ -88,7 +88,7 @@ fn parse_send(args: Vec<&str>) -> Command {
 }
 
 pub fn parse(prompt: String) -> Command {
-    let split: Vec<&str> = prompt.split(" ").map(|s| s.trim()).collect();
+    let split: Vec<&str> = prompt.split(' ').map(|s| s.trim()).collect();
 
     match split.get(0).unwrap().to_lowercase().as_str() {
         "help" => Command::Help,

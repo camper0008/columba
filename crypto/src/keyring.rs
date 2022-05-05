@@ -10,11 +10,11 @@ fn file_exists(file_location: &str) -> bool {
 }
 
 fn create_and_generate_key_file(key_location: &str) -> Result<(), KeyRingError> {
-    let pair = generate_key_pair().map_err(|err| KeyRingError::KeyGenError(err))?;
+    let pair = generate_key_pair().map_err(KeyRingError::KeyGenError)?;
 
     let private = pair
         .private_key_to_pem()
-        .map_err(|err| KeyRingError::OpenSSLError(err))?;
+        .map_err(KeyRingError::OpenSSLError)?;
     File::create(key_location)
         .map_err(|_| KeyRingError::IoError)?
         .write_all(&private)
@@ -23,7 +23,7 @@ fn create_and_generate_key_file(key_location: &str) -> Result<(), KeyRingError> 
     let pub_key_location = key_location.to_owned() + ".pub";
     let public = pair
         .public_key_to_pem()
-        .map_err(|err| KeyRingError::OpenSSLError(err))?;
+        .map_err(KeyRingError::OpenSSLError)?;
     File::create(pub_key_location)
         .map_err(|_| KeyRingError::IoError)?
         .write_all(&public)
@@ -144,9 +144,9 @@ impl KeyRing {
         let public_key_bytes = self.public_key()?.bytes().collect::<Vec<u8>>();
 
         let rsa = Rsa::public_key_from_pem(&public_key_bytes)
-            .map_err(|err| KeyRingError::OpenSSLError(err))?;
+            .map_err(KeyRingError::OpenSSLError)?;
         rsa.public_encrypt(&msg_bytes, encrypted_msg_bytes.as_mut_slice(), padding)
-            .map_err(|err| KeyRingError::OpenSSLError(err))?;
+            .map_err(KeyRingError::OpenSSLError)?;
 
         Ok(encrypted_msg_bytes.into_iter().map(|b| b as char).collect())
     }
